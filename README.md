@@ -9,6 +9,7 @@ Este repositório reúne o código-fonte da aplicação front-end e back-end, be
 ## ✨ Funcionalidades principais
 
 - **Upload de arquivos XML ou ZIP com múltiplas NF-e**
+- Resposta recebidass no e-mail solicitado;
 - **Extração automática** de campos fiscais relevantes (CNPJ, nome, UF, endereço, CFOP, NCM, produto, valor, emissão etc.)
 - **Deduplicação inteligente** com base na chave de acesso da nota
 - **Gravação estruturada** em planilha Google Sheets
@@ -29,11 +30,11 @@ git clone https://github.com/I2A2-SynergIA/I2A2-SynergIA-ia-agents.git
 
 2. **Configure o Google Apps Script**:
 
-- Acesse [https://script.google.com](https://script.google.com)
-- Crie um novo projeto e cole o conteúdo do arquivo `Code.gs`
+- Acesse [https://script.google.com](https://script.google.com) ou dentro do seu Google Drive, criar um arquivo de Script
+- Crie um novo projeto e cole o conteúdo do arquivo `Code.gs`. Rrenomeie o arquivo para Code.gs
 - Crie um arquivo HTML chamado `Index` e cole o conteúdo do `index.html`
 - Publique o script como um aplicativo da web com permissões adequadas
-- Crie uma planilha Google com o nome da aba `NFe Data` (ou edite no código)
+- Crie uma planilha Google com o nome da aba `NFe Data, edite no código inserindo o ID da planilha;
 
 3. **Instale o fluxo n8n**:
 
@@ -46,8 +47,9 @@ git clone https://github.com/I2A2-SynergIA/I2A2-SynergIA-ia-agents.git
 - Acesse a interface publicada
 - Faça upload dos arquivos `.xml` ou `.zip`
 - Acompanhe o processamento e veja os dados em tempo real
+- Receba no email informado a an´laise da Nota Fiscal
 - Os dados são enriquecidos automaticamente com descrições fiscais
-- Visualize ou exporte diretamente do Google Sheets
+- Visualize no seu e-mail ou exporte diretamente do Google Sheets
 
 ---
 
