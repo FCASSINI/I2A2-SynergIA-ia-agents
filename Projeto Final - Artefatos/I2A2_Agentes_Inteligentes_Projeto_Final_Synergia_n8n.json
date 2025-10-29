@@ -1,0 +1,696 @@
+{
+  "name": "Synergia versão final 28.10.2025",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -16,
+        80
+      ],
+      "id": "5b1e376a-aa2d-43ce-8242-6dbd0e4075a3",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug",
+          "mode": "list",
+          "cachedResultName": "SynergIA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 727848287,
+          "mode": "list",
+          "cachedResultName": "NFe Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug/edit#gid=727848287"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        160,
+        80
+      ],
+      "id": "579c8fc7-d07d-49ef-b0e5-061abbdccf22",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FHuFVQXn33DxbuTA",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug",
+          "mode": "list",
+          "cachedResultName": "SynergIA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 176447485,
+          "mode": "list",
+          "cachedResultName": "NotasRecebidas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug/edit#gid=176447485"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "File Name": "={{ $json['File Name'] }}",
+            "Chave de Acesso": "={{ $json['Chave de Acesso'] }}",
+            "CNPJ Emissor": "={{ $json['CNPJ Emissor'] }}",
+            "Nome Emissor": "={{ $json['Nome Emissor'] }}",
+            "UF Emissor": "={{ $json['UF Emissor'] }}",
+            "Endereço Emissor": "={{ $json['Endereço Emissor'] }}",
+            "CNPJ Destinatário": "={{ $json['CNPJ Destinatário'] }}",
+            "Nome Destinatário": "={{ $json['Nome Destinatário'] }}",
+            "UF Destinatário": "={{ $json['UF Destinatário'] }}",
+            "Endereço Destinatário": "={{ $json['Endereço Destinatário'] }}",
+            "CFOP": "={{ $json.CFOP }}",
+            "NCM": "={{ $json.NCM }}",
+            "Valor Total": "={{ $json['Valor Total'] }}",
+            "Data Emissão": "={{ $json['Data Emissão'] }}",
+            "Número NF": "={{ $json['Número NF'] }}",
+            "Entrada (tpNF=0)": "={{ $json['Entrada (tpNF=0)'] }}",
+            "Saída (tpNF=1)": "={{ $json['Saída (tpNF=1)'] }}",
+            "Inscrição Estadual": "={{ $json['Inscrição Estadual'] }}",
+            "Inscrição Municipal": "={{ $json['Inscrição Municipal'] }}",
+            "CEP Emissor": "={{ $json['CEP Emissor'] }}",
+            "CEP Destinatário": "={{ $json['CEP Destinatário'] }}",
+            "Origem/CST": "={{ $json['Origem/CST'] }}",
+            "CSOSN": "={{ $json.CSOSN }}",
+            "Descrição Produto": "={{ $json['Descrição Produto'] }}",
+            "E-mail": "={{ $json.Email }}",
+            "IE Subst_Trib": "={{ $json['IE Subst_Trib'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "File Name",
+              "displayName": "File Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Chave de Acesso",
+              "displayName": "Chave de Acesso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CNPJ Emissor",
+              "displayName": "CNPJ Emissor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nome Emissor",
+              "displayName": "Nome Emissor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UF Emissor",
+              "displayName": "UF Emissor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Endereço Emissor",
+              "displayName": "Endereço Emissor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CNPJ Destinatário",
+              "displayName": "CNPJ Destinatário",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nome Destinatário",
+              "displayName": "Nome Destinatário",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UF Destinatário",
+              "displayName": "UF Destinatário",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Endereço Destinatário",
+              "displayName": "Endereço Destinatário",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CFOP",
+              "displayName": "CFOP",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "NCM",
+              "displayName": "NCM",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Valor Total",
+              "displayName": "Valor Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Data Emissão",
+              "displayName": "Data Emissão",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Número NF",
+              "displayName": "Número NF",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Entrada (tpNF=0)",
+              "displayName": "Entrada (tpNF=0)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Saída (tpNF=1)",
+              "displayName": "Saída (tpNF=1)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Inscrição Estadual",
+              "displayName": "Inscrição Estadual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Inscrição Municipal",
+              "displayName": "Inscrição Municipal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IE Subst_Trib",
+              "displayName": "IE Subst_Trib",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CEP Emissor",
+              "displayName": "CEP Emissor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CEP Destinatário",
+              "displayName": "CEP Destinatário",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Origem/CST",
+              "displayName": "Origem/CST",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CSOSN",
+              "displayName": "CSOSN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Descrição Produto",
+              "displayName": "Descrição Produto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "E-mail",
+              "displayName": "E-mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        352,
+        80
+      ],
+      "id": "effa5c49-8e49-4353-bd7c-a5868547351c",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FHuFVQXn33DxbuTA",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug",
+          "mode": "list",
+          "cachedResultName": "SynergIA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 727848287,
+          "mode": "list",
+          "cachedResultName": "NFe Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sw7uJcJwTTnrmas_n6N6qQ0T-Z0h6naSsJNUWDBTTug/edit#gid=727848287"
+        },
+        "clear": "specificRange",
+        "range": "A2:Z"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        528,
+        -48
+      ],
+      "id": "92910adc-301b-4ab7-bcfb-20189706925c",
+      "name": "Clear sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FHuFVQXn33DxbuTA",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Chave de Acesso"
+            },
+            {
+              "fieldToAggregate": "UF Emissor"
+            },
+            {
+              "fieldToAggregate": "UF Destinatário"
+            },
+            {
+              "fieldToAggregate": "Entrada (tpNF=0)"
+            },
+            {
+              "fieldToAggregate": "Saída (tpNF=1)"
+            },
+            {
+              "fieldToAggregate": "CNPJ Emissor"
+            },
+            {
+              "fieldToAggregate": "CNPJ Destinatário"
+            },
+            {
+              "fieldToAggregate": "Origem/CST"
+            },
+            {
+              "fieldToAggregate": "CSOSN"
+            },
+            {
+              "fieldToAggregate": "Inscrição Estadual"
+            },
+            {
+              "fieldToAggregate": "Descrição Produto"
+            },
+            {
+              "fieldToAggregate": "CFOP"
+            },
+            {
+              "fieldToAggregate": "Nome Emissor"
+            },
+            {
+              "fieldToAggregate": "Inscrição Municipal"
+            },
+            {
+              "fieldToAggregate": "NCM"
+            },
+            {
+              "fieldToAggregate": "IE_Subst_Trib",
+              "renameField": true
+            }
+          ]
+        },
+        "options": {
+          "keepMissing": true
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        576,
+        176
+      ],
+      "id": "57970b08-668a-49b5-91c9-08003908be3b",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "content": "## Recebe as Notas e remove da base de dados as notas já recebidas e analisadas pelo agente,",
+        "height": 512,
+        "width": 816
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -64,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "686c2ba4-ac06-4320-9fb1-5a2138dae4a0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um **auditor fiscal especialista em NFe (Nota Fiscal Eletrônica)**, com domínio absoluto da legislação tributária brasileira (SPED Fiscal, Tabela TIPI, Regulamento do ICMS e normas da SEFAZ). Sua missão é realizar uma **análise crítica, precisa e exaustiva** dos dados fornecidos, com foco em **CFOP** e **NCM**, garantindo **100% de conformidade** com a operação comercial realizada.\n\n### DADOS DE ENTRADA (forneça sempre em formato estruturado - JSON, tabela ou texto claro):\n- Descrição completa da operação (ex: venda interestadual, devolução, bonificação, industrialização, etc.)\n- UF do emitente:{{ $('Aggregate').item.json['UF Emissor'] }}\n- UF do destinatário:{{ $('Aggregate').item.json['UF Destinatário'] }}\n- Entrada (tpNF=0): {{ $('Aggregate').item.json['Entrada (tpNF=0)'] }} // ex.: \n- Saída (tpNF=1): {{ $('Aggregate').item.json['Saída (tpNF=1)'] }} // ex.:\n- Inscrição Estadual: {{ $('Aggregate').item.json['Inscrição Estadual'] }}\n- Inscrição Municipal: {{ $('Aggregate').item.json['Inscrição Municipal'] }}\n- IE Subst. Trib.: {{ $json.IE_Subst_Trib }}\n\n- Itens da nota: \n  - Descrição do produto: {{ $json['Descrição Produto'] }}\n  - CFOP informado:{{ $json.CFOP }}\n  - NCM informado:{{ $json.NCM }}\n\n### TAREFAS OBRIGATÓRIAS (execute em sequência):\n\n1. **Validação do CFOP**  \n   - Identifique a **natureza exata da operação** com base nos dados.  \n   - Consulte a **Tabela de CFOP oficial (Ato COTEPE)** e verifique se o CFOP informado é:  \n     - **Válido** para o grupo (1.xxx, 2.xxx, 5.xxx, 6.xxx, 7.xxx)  \n     - **Adequado** à operação, UF, regime tributário e tipo de pessoa  \n     - **Compatível** com devolução, substituição tributária, diferimento, etc.  \n   - **Se incorreto**: indique o **CFOP correto** com justificativa legal (artigo, convênio, regulamento).\n\n2. **Validação do NCM**  \n   - Analise a **descrição real do produto** (não apenas o nome comercial).  \n   - Consulte a **Tabela TIPI vigente** e classifique o produto corretamente.  \n   - Verifique se o NCM informado:  \n     - Tem **8 dígitos válidos**  \n     - Corresponde à **classe, posição, subposição e item** do produto  \n     - Está alinhado com a **finalidade de uso** (ex: mesmo NCM pode variar por aplicação)  \n   - **Se incorreto**: sugira o **NCM correto** com base na TIPI + fonte oficial.\n\n3. **Riscos Fiscais Identificados**  \n   - Liste **todos os riscos** (multa, glosa, autuação, malha fina) com probabilidade (baixa/média/alta).  (se possível).\n  \n4. **Recomendações Práticas**  \n   - Ação imediata (ex: retificar NFe via carta de correção ou NFe de ajuste)  \n   - Prazo legal para correção  \n   - Documentos complementares necessários\n\n---\n\n### FORMATO DE SAÍDA :\n\n## RELATÓRIO DE CONFORMIDADE FISCAL\n\n### 1. Resumo da Operação\n> [Breve descrição em 1 parágrafo]\n\n### 2. Análise do CFOP\n- **CFOP Informado**: `XXXX`  \n- **Adequado?** `SIM / NÃO`  \n- **CFOP Correto (se aplicável)**: `XXXX`  \n- **Justificativa Legal**: [fonte + artigo]\n\n### 3. Análise do NCM\n| Item | Descrição | NCM Informado | NCM Correto | Conformidade |\n|------|-----------|----------------|-------------|---------------|\n| 1    | Produto X | 1234.56.78     | 9012.34.56  | ❌ NÃO        |\n\n- **Justificativa NCM**: [baseada na TIPI + descrição técnica]\n\n### 4. Recomendações\n1. [Ação 1]  \n2. [Ação 2]  \n👉 **Prazo para retificação**: XX dias úteis\n",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        208
+      ],
+      "id": "3679c830-da77-40c3-bf35-8d0c95f722fb",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        544
+      ],
+      "id": "2bd3f6cb-a016-49d0-9db1-4ca472860f95",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "zJm1QlCMPpsi44a9",
+          "name": "OpenAi api Marcelo"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Get row(s) in sheet').item.json.Email }}",
+        "subject": "Notas ficais com CFOP e NCM",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        1392,
+        544
+      ],
+      "id": "1f2c26a6-c574-4f52-b6a8-f0dff1033e25",
+      "name": "Send a message in Gmail",
+      "webhookId": "bb8de96a-82a8-4957-b7c0-00b505970336",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "J5wU1b5XA8bugqrU",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Utilize o output para criar um e-mail profissional.\n\nO assunto será: Análise de nota(s) fiscais.\n\nEndereço do destinatário: {{ $('Append row in sheet').item.json['E-mail'] }}\n\nA saudação deve ser: Prezado(a)\n\nCorpo do e-mail: {{ $json.output }}\n\nFinalização do e-mail: Atenciosamente, Equipe Synergia\n",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        208
+      ],
+      "id": "4e1fff89-cf76-4591-b1a3-75d5a6248c78",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        544
+      ],
+      "id": "b7a7bdb0-4c14-4aab-ae68-e571201f7998",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "zJm1QlCMPpsi44a9",
+          "name": "OpenAi api Marcelo"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Clear sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "114ac6cd-d19d-4b6a-a291-02051eae93c8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "90347cdbd1d34294f594256e038c6f99a027898ac494f238cc38315b09db10b6"
+  },
+  "id": "QjCiQ12LNK6iakTk",
+  "tags": []
+}
