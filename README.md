@@ -24,10 +24,6 @@ Este repositório reúne o código-fonte da aplicação front-end e back-end, be
 
 1. **Clone o repositório**:
 
-```bash
-git clone https://github.com/I2A2-SynergIA/I2A2-SynergIA-ia-agents.git
-```
-
 2. **Configure o Google Apps Script**:
 
 - Acesse [https://script.google.com](https://script.google.com) ou dentro do seu Google Drive, criar um arquivo de Script
