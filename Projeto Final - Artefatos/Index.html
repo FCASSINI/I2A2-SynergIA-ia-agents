@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_top">
+  <title>SynergIA – Processador NF-e</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://img.freepik.com/free-vector/network-mesh-wire-digital-technology-background_1017-27428.jpg?t=st=1753840754~exp=1753844354~hmac=b077c5f602238ac5443ef306243980aefe632329574689039242743c26264512&w=1380') center center / cover no-repeat fixed;
+      color: #333; line-height: 1.6;
+    }
+
+    header {
+      position: relative; height: 280px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      animation: backgroundMove 20s ease-in-out infinite;
+    }
+    header::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://img.freepik.com/vetores-premium/contabilidade-e-pesquisa-vector-conceito-redondo-ilustracao-linear-azul_104589-1304.jpg') center/cover no-repeat; z-index: 1;
+    }
+    header::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 40, 85, 0.75); z-index: 2;
+    }
+    .banner-content { position: relative; z-index: 3; color: #fff; text-align: center; }
+    .banner-content h1 { font-size: 3em; font-weight: 700; text-shadow: 0 4px 8px rgba(0,0,0,0.5); margin-bottom: 15px; }
+    .banner-content p { font-size: 1.1em; margin-bottom: 8px; font-weight: 300; letter-spacing: 0.5px; }
+    .banner-content p:last-child { background: rgba(0,0,0,0.2); display: inline-block; padding: 10px 20px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+    .highlights {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      max-width: 1200px; margin: 30px auto; padding: 20px;
+      background-color: rgba(255, 255, 255, 0.65); backdrop-filter: blur(3px);
+      border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 1024px) { .highlights { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .highlights { grid-template-columns: 1fr; } }
+    .highlight {
+      background: #fff; border-left: 4px solid #4CAF50; padding: 15px; border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08); transition: transform 0.2s ease;
+    }
+    .highlight:hover { transform: translateY(-3px); }
+    .highlight h3 { font-size: 1.2em; margin-bottom: 8px; }
+    .highlight p { font-size: 0.9em; line-height: 1.4; }
+
+    main {
+      background-color: rgba(255, 255, 255, 0.3);
+      border: 4px solid #003366; border-radius: 8px; padding: 30px;
+      margin: 20px auto; max-width: 800px; backdrop-filter: blur(1px);
+    }
+
+    .file-input { margin: 20px 0; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+
+    #loader { display: none; margin-top: 10px; font-style: italic; color: #555; text-align: center; }
+    #result { margin-top: 20px; text-align: left; }
+
+    .success { background-color: #dff0d8; color: #3c763d; padding: 10px; border-radius: 4px; }
+    .error   { background-color: #f2dede; color: #a94442; padding: 10px; border-radius: 4px; }
+    .fade-in { animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .preview-card { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+    .preview-card h4 { margin-bottom: 10px; color: #003366; }
+    .preview-list { list-style: none; padding: 0; }
+    .preview-list li { margin-bottom: 5px; }
+    .preview-list li strong { display: inline-block; width: 140px; }
+
+    footer { background-color: #000428; color: #fff; text-align: center; padding: 20px; font-size: .9em; }
+    footer a { color: #4CAF50; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .banner-content h1 { font-size: 2em; }
+      .banner-content p  { font-size: 1em; }
+    }
+
+    .middle-background { position: relative; background-size: cover; background-position: center; background-repeat: no-repeat; padding: 40px 0; z-index: 0; }
+    .middle-background::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; inset: 0; background-color: rgba(255, 255, 255, 0.6); z-index: -1; }
+
+    @keyframes backgroundMove { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    .title-animation { animation: glow 2s ease-in-out infinite alternate; cursor: pointer; transition: transform 0.3s ease; }
+    .title-animation:hover { transform: scale(1.05); }
+    @keyframes glow { from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4CAF50; } to { text-shadow: 0 0 20px #fff, 0 0 30px #4CAF50, 0 0 40px #4CAF50; } }
+    .slide-in-text { animation: slideInFromLeft 1.5s ease-out; }
+    @keyframes slideInFromLeft { 0% { transform: translateX(-100%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+    .highlight-word { display: inline-block; color: #4CAF50; animation: bounce 2s infinite; animation-delay: 1s; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+
+    .info.aviso-dup { background-color: #fff3cd; color: #856404; border-left: 5px solid #ffeeba; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+    .preview-card.duplicated { border-color: #ffeeba; background-color: #fffef7; }
+
+    .spinner { border: 6px solid #f3f3f3; border-top: 6px solid #4CAF50; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 10px auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .preview-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: translateY(-2px); transition: all 0.3s ease; }
+
+    @media (max-width: 480px) { .btn, .btn-clear { width: 100%; margin-bottom: 10px; } }
+
+    input[type="file"] { display: none; }
+    .custom-file-btn {
+      display: inline-flex; align-items: center; padding: 10px 20px; background-color: #4CAF50;
+      color: #fff; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background-color 0.3s ease;
+    }
+    .custom-file-btn:hover { background-color: #45a049; }
+    .file-name-label { display: block; margin-top: 10px; font-size: 0.9em; color: #555; }
+
+    .btn {
+      background-color: #4CAF50; color: #fff; padding: 10px 20px; border: none; border-radius: 4px;
+      cursor: pointer; font-size: 1em; display: inline-flex; align-items: center; font-weight: bold; transition: background-color 0.3s ease;
+    }
+    .btn:hover { background-color: #45a049; }
+    .btn-clear {
+      background-color: #f44336; color: #fff; padding: 10px 20px; border: none; border-radius: 4px;
+      cursor: pointer; font-size: 1em; display: inline-flex; align-items: center; font-weight: bold; transition: background-color 0.3s ease;
+    }
+    .btn-clear:hover { background-color: #d32f2f; }
+
+    .typewriter { overflow: hidden; border-right: .15em solid #4CAF50; white-space: nowrap; margin: 0 auto; letter-spacing: .15em; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #4CAF50; } }
+
+    .nf-processor { background-color: rgba(255, 255, 255, 0.3); border: 4px solid #003366; border-radius: 8px; padding: 30px; margin: 20px auto; max-width: 800px; backdrop-filter: blur(1px); }
+
+    .typewriter-loop::after { content: '|'; display: inline-block; font-size: 1.1em; font-weight: 250; white-space: nowrap; overflow: hidden; letter-spacing: .05em; margin-left: 4px; animation: blink 0.9s steps(1) infinite; color: #4CAF50; font-weight: bold; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    #loader { display: none; margin-top: 10px; font-style: italic; color: #555; text-align: center; }
+
+    /* Campo de e-mail (sem alterar layout) */
+    .email-row { text-align:center; margin-top: 0; }
+    .email-row input[type="email"] { padding:10px; border:1px solid #ccc; border-radius:4px; width:min(360px, 90%); }
+    .small-error { color:#d32f2f; font-size:.9em; margin-top:6px; min-height:1em; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="banner-content">
+      <h1 class="title-animation">SYNERGIA</h1>
+      <p class="slide-in-text">Agente inteligente para questões <span class="highlight-word">contábeis</span> e <span class="highlight-word">fiscais</span></p>
+      <p id="typingText" class="typewriter-loop"></p>
+    </div>
+  </header>
+
+  <div class="middle-background">
+    <section class="highlights">
+      <div class="highlight">
+        <h3>🔍 Precisão Fiscal na Veia</h3>
+        <p>Automatiza leitura e classificação de NF-e de produtos, garantindo conformidade e agilidade.</p>
+      </div>
+      <div class="highlight">
+        <h3>⚙️ Automação Total</h3>
+        <p>Extração de dados-chave via arquivos .XML, .ZIP e utilizando APIs para conferências, sem retrabalhos manuais.</p>
+      </div>
+      <div class="highlight">
+        <h3>🧠 Inteligência Contábil</h3>
+        <p>Pergunte naturalmente e receba dados estruturados para suporte decisório e estratégico.</p>
+      </div>
+      <div class="highlight">
+        <h3>🏢 Pensado para Você</h3>
+        <p>Ideal para escritórios de contabilidade, departamentos fiscais e analistas tributários.</p>
+      </div>
+    </section>
+
+    <main class="nf-processor">
+      <h2 style="text-align: center; margin-bottom: 20px;">Processador NF-e XML - DANFE</h2>
+      <div style="background:#e8f5e9; border-left:4px solid #4CAF50; padding:15px; margin-bottom:20px; border-radius:6px; font-size:0.95em; color:#2e7d32;">
+        <strong>ℹ️ Instruções:</strong> Selecione arquivos <code>.xml</code> ou <code>.zip</code> de notas fiscais eletrônicas. Caso ja tenha sido processada uma NF o sistema detecta e evita duplicidades de registro automaticamente.
+      </div>
+
+      <div class="file-input" style="text-align: center;">
+        <label for="xmlFile" class="custom-file-btn">
+          <img src="https://www.svgrepo.com/show/56785/xml.svg" alt="XML ícone" width="20" height="20" style="margin-right: 8px; vertical-align: middle;">
+          Escolher arquivos
+        </label>
+        <input type="file" id="xmlFile" accept=".xml,.zip" multiple>
+        <span id="fileNameLabel" class="file-name-label">Nenhum arquivo selecionado</span>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 20px 0;">
+        <button class="btn" onclick="uploadFile()" disabled>
+          <img src="https://www.svgrepo.com/show/502885/upload-file-2.svg" alt="Upload" width="20" height="20" style="margin-right: 8px; vertical-align: middle;">
+          Upload e Processar
+        </button>
+
+        <button class="btn-clear" onclick="clearData()">
+          <img src="https://www.svgrepo.com/show/502610/delete-file.svg" alt="Limpar" width="20" height="20" style="margin-right: 8px; vertical-align: middle;">
+          Limpar Tela
+        </button>
+      </div>
+
+      <!-- Campo de e-mail abaixo do botão upload -->
+      <div class="email-row">
+        <label for="userEmail" style="display:block; font-weight:bold; margin-bottom:6px;">E-mail para registrar no processamento</label>
+        <input type="email" id="userEmail" placeholder="exemplo@empresa.com.br" autocomplete="email" inputmode="email">
+        <div id="emailError" class="small-error" aria-live="polite"></div>
+      </div>
+
+      <div id="loader">⏳ Processando arquivos, aguarde...</div>
+      <p id="progressSummary" style="display:none; font-size:0.95em; color:#2e7d32; background:#e8f5e9; border-left:4px solid #4CAF50; padding:10px; margin-top:10px; border-radius:6px;"></p>
+      <div id="result"></div>
+      <div id="spinner-container" style="display:none;text-align:center;">
+        <div class="spinner"></div>
+        <p style="font-size:0.9em;color:#777;margin-top:5px;">Processando NF-e...</p>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    © 2025 SynergIA – Todos os direitos reservados.<br>
+    Desenvolvido com tecnologia de ponta para a sua contabilidade.<br>
+    Conformidade fiscal descomplicada, impulsionada por IA.<br>
+    <a href="mailto: synergiai2a2@gmail.com">synergiai2a2@gmail.com</a>
+  </footer>
+
+<script>
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim()); }
+
+function showSpinner() {
+  document.getElementById('spinner-container').style.display = 'block';
+  document.querySelector('.btn').disabled = true;     // upload
+  document.querySelector('.btn-clear').disabled = true;
+}
+
+function hideSpinner() {
+  document.getElementById('spinner-container').style.display = 'none';
+  // reabilita upload apenas se e-mail válido
+  const ok = isValidEmail(document.getElementById('userEmail').value);
+  document.querySelector('.btn').disabled = !ok;
+  document.querySelector('.btn-clear').disabled = false;
+}
+
+function uploadFile() {
+  const fileInput = document.getElementById('xmlFile');
+  const resultDiv = document.getElementById('result');
+  const loader = document.getElementById('loader');
+  const summary = document.getElementById('progressSummary');
+  const emailInput = document.getElementById('userEmail');
+  const emailError = document.getElementById('emailError');
+
+  summary.style.display = 'none';
+  summary.textContent = '';
+  resultDiv.innerHTML = '';
+  resultDiv.className = '';
+  loader.style.display = 'block';
+
+  // valida e-mail antes de iniciar
+  const email = emailInput.value.trim();
+  if (!isValidEmail(email)) {
+    loader.style.display = 'none';
+    emailError.textContent = 'Informe um e-mail válido para continuar.';
+    emailInput.focus();
+    return;
+  }
+  emailError.textContent = '';
+  showSpinner();
+
+  const files = fileInput.files;
+  if (!files || files.length === 0) {
+    loader.style.display = 'none';
+    hideSpinner();
+    resultDiv.innerHTML = '<div class="error fade-in">Por favor, selecione ao menos um arquivo XML ou ZIP.</div>';
+    return;
+  }
+
+  const oversize = Array.from(files).find(f =>
+    (f.name.toLowerCase().endsWith('.zip') && f.size > 10 * 1024 * 1024) ||
+    (f.name.toLowerCase().endsWith('.xml') && f.size > 2 * 1024 * 1024)
+  );
+  if (oversize) {
+    loader.style.display = 'none';
+    hideSpinner();
+    resultDiv.innerHTML = `<div class="error fade-in">Arquivo "${oversize.name}" excede o tamanho permitido.</div>`;
+    return;
+  }
+
+  const filePromises = Array.from(files).map(file =>
+    new Promise(resolve => {
+      const reader = new FileReader();
+      const lc = file.name.toLowerCase();
+      reader.onload = e => resolve({ name: file.name, content: e.target.result, success: true });
+      reader.onerror = () => resolve({ name: file.name, content: '', success: false, message: `Erro ao ler o arquivo "${file.name}".` });
+
+      if (lc.endsWith('.zip')) reader.readAsDataURL(file);
+      else if (lc.endsWith('.xml')) reader.readAsText(file, 'UTF-8');
+      else resolve({ name: file.name, content: '', success: false, message: `Arquivo "${file.name}" não é XML ou ZIP válido.` });
+    })
+  );
+
+  Promise.all(filePromises)
+    .then(fileData => {
+      const validFiles = fileData.filter(f => f.success);
+      if (validFiles.length === 0) {
+        loader.style.display = 'none';
+        hideSpinner();
+        resultDiv.innerHTML = fileData.map(r => `<div class="error fade-in">${r.message}</div>`).join('');
+        return;
+      }
+
+      google.script.run
+        .withSuccessHandler(results => {
+          loader.style.display = 'none';
+          hideSpinner();
+          summary.style.display = 'block';
+          const duplicates = results.filter(r => r.duplicate).length;
+          summary.textContent = `📂 ${results.length} arquivos processados de ${validFiles.length} enviados.` +
+                                (duplicates > 0 ? ` 🔁 ${duplicates} duplicado(s)` : '');
+
+          if (!Array.isArray(results)) {
+            resultDiv.innerHTML = '<div class="error fade-in">Erro inesperado: dados inválidos recebidos do servidor.</div>';
+            return;
+          }
+
+          let html = '';
+          if (results.some(r => r.success)) {
+            html += '<div class="success fade-in">📄✅ Dados extraídos com sucesso!</div>';
+          }
+
+          results.forEach(r => {
+            if ((r.success || r.duplicate) && r.data) {
+              if (r.duplicate) {
+                html += `<div class="info fade-in aviso-dup">⚠️ NF com chave ${r.data.accessKey} já existente. Exibindo dados armazenados.</div>`;
+              }
+              html += `
+                <div class="preview-card fade-in ${r.duplicate ? 'duplicated' : ''}">
+                  <h4>Pré-visualização: ${r.data.fileName}</h4>
+                  <ul class="preview-list">
+                    <li><strong>Chave de Acesso:</strong> ${r.data.accessKey}</li>
+                    <li><strong>CNPJ Emissor:</strong> ${r.data.cnpjEmit}</li>
+                    <li><strong>Nome Emissor:</strong> ${r.data.emitName}</li>
+                    <li><strong>UF Emissor:</strong> ${r.data.emitUF}</li>
+                    <li><strong>Endereço Emissor:</strong> ${r.data.emitAddress}</li>
+                    <li><strong>CNPJ Destinatário:</strong> ${r.data.cnpjDest}</li>
+                    <li><strong>Nome Destinatário:</strong> ${r.data.destName}</li>
+                    <li><strong>UF Destinatário:</strong> ${r.data.destUF}</li>
+                    <li><strong>Endereço Destinatário:</strong> ${r.data.destAddress}</li>
+                    <li><strong>CFOP:</strong> ${r.data.cfops}</li>
+                    <li><strong>NCM:</strong> ${r.data.ncms}</li>
+                    <li><strong>Valor Total:</strong> ${r.data.totalValue}</li>
+                    <li><strong>Data Emissão:</strong> ${r.data.emissionDate}</li>
+                    <li><strong>Número NF:</strong> ${r.data.nfNumber}</li>
+                    <li><strong>Entrada:</strong> ${r.data.entrada}</li>
+                    <li><strong>Saída:</strong> ${r.data.saida}</li>
+                    <li><strong>IE:</strong> ${r.data.ieEmit}</li>
+                    <li><strong>IM:</strong> ${r.data.imEmit}</li>
+                    <li><strong>IEST:</strong> ${r.data.iestEmit}</li>
+                    <li><strong>CEP Emissor:</strong> ${r.data.cepEmit}</li>
+                    <li><strong>CEP Destinatário:</strong> ${r.data.cepDest}</li>
+                    <li><strong>Origem/CST:</strong> ${r.data.origCst}</li>
+                    <li><strong>CSOSN:</strong> ${r.data.csosn}</li>
+                    <li><strong>Descrição Produto:</strong> ${r.data.descrProds}</li>
+                  </ul>
+                </div>`;
+            } else if (r.duplicate) {
+              html += `<div class="error fade-in aviso-dup">⚠️ ${r.message}</div>`;
+            } else {
+              html += `<div class="error fade-in">${r.message}</div>`;
+            }
+          });
+
+          resultDiv.innerHTML = html;
+        })
+        .withFailureHandler(err => {
+          loader.style.display = 'none';
+          hideSpinner();
+          resultDiv.innerHTML = `<div class="error fade-in">Erro geral: ${err.message || err}</div>`;
+        })
+        .processXmlFile(validFiles, email); // envia e-mail ao Apps Script
+    })
+    .catch(err => {
+      loader.style.display = 'none';
+      hideSpinner();
+      resultDiv.innerHTML = `<div class="error fade-in">Erro ao ler arquivos: ${err.message || err}</div>`;
+    });
+}
+
+function clearData() {
+  // limpa UI
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('result').innerHTML = '';
+  document.getElementById('xmlFile').value = '';
+  document.getElementById('progressSummary').style.display = 'none';
+
+  // limpa e-mail e mensagem de erro
+  document.getElementById('userEmail').value = '';
+  document.getElementById('emailError').textContent = '';
+
+  // esconde spinner e reconfigura botões
+  document.getElementById('spinner-container').style.display = 'none';
+  document.querySelector('.btn-clear').disabled = false;
+
+  // força o botão Upload a ficar desabilitado até novo e-mail válido
+  document.querySelector('.btn').disabled = true;
+
+  // opcional: reset label de arquivo
+  const label = document.getElementById('fileNameLabel');
+  if (label) label.textContent = 'Nenhum arquivo selecionado';
+}
+
+document.getElementById('xmlFile').addEventListener('change', function () {
+  const label = document.getElementById('fileNameLabel');
+  if (this.files.length === 0) label.textContent = 'Nenhum arquivo selecionado';
+  else if (this.files.length === 1) label.textContent = this.files[0].name;
+  else label.textContent = `${this.files.length} arquivos selecionados`;
+});
+
+// habilita/desabilita upload conforme validade do e-mail
+document.getElementById('userEmail').addEventListener('input', function(){
+  const ok = isValidEmail(this.value);
+  document.querySelector('.btn').disabled = !ok;
+  document.getElementById('emailError').textContent = ok ? '' : 'Informe um e-mail válido para continuar.';
+});
+</script>
+
+<script>
+const phrases = [
+  "Automatize sua gestão fiscal e foque no que realmente importa.",
+  "Conformidade fiscal descomplicada, impulsionada por IA.",
+  "Evite retrabalho com processamento inteligente de NF-e.",
+  "Receba dados estruturados e decisões rápidas com IA contábil."
+];
+
+let part = 0, index = 0, typing = true;
+const target = document.getElementById("typingText");
+const typingSpeed = 50, eraseSpeed = 30, pauseAfterTyping = 1800, pauseAfterErase = 500;
+
+function typeWriterCarousel() {
+  const current = phrases[part];
+  if (typing) {
+    if (index < current.length) { target.textContent += current.charAt(index++); setTimeout(typeWriterCarousel, typingSpeed); }
+    else { typing = false; setTimeout(typeWriterCarousel, pauseAfterTyping); }
+  } else {
+    if (index > 0) { target.textContent = current.substring(0, --index); setTimeout(typeWriterCarousel, eraseSpeed); }
+    else { typing = true; part = (part + 1) % phrases.length; setTimeout(typeWriterCarousel, pauseAfterErase); }
+  }
+}
+typeWriterCarousel();
+</script>
+</body>
+</html>
